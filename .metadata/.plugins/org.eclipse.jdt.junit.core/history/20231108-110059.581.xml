@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Web01ApplicationTests" project="web01" tests="2" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.example.Web01ApplicationTests" incomplete="true" displayname="Web01ApplicationTests" uniqueid="[engine:junit-jupiter]/[class:com.example.Web01ApplicationTests]">
+    <testcase name="now" classname="com.example.Web01ApplicationTests" incomplete="true" displayname="now()" uniqueid="[engine:junit-jupiter]/[class:com.example.Web01ApplicationTests]/[method:now()]"/>
+    <testcase name="contextLoads" classname="com.example.Web01ApplicationTests" incomplete="true" displayname="contextLoads()" uniqueid="[engine:junit-jupiter]/[class:com.example.Web01ApplicationTests]/[method:contextLoads()]"/>
+  </testsuite>
+</testrun>
