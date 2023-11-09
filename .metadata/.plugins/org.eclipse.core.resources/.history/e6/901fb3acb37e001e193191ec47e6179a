@@ -1,0 +1,33 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">게시글 정보</h1>
+	<div id="div_posts"></div>
+</div>
+<script>
+	const pid="[[${pid}]]";
+	getPost();
+	//alert(pid);
+	function getPost(){
+		$.ajax({
+			type:'get',
+			url:'/posts/read.json',
+			data:{pid},
+			success:function(data){
+				//console.log(data);
+				const temp = Handlebars.compile($("#temp_posts").html());
+				$("#div_posts").html(temp(data))
+			}
+		})
+	}
+</script>
+<script id="temp_posts" type="x-handlebars-template">
+	<div class="card">
+		<div class="card-body">
+			<h5>{{title}}</h5>
+			<p>{{body}}</p>
+		</div>
+		<div class="card-footer">
+			<span>작성자 : {{uname}} ({{writer}})</span>
+			<span>작성일 : {{fmtdate}}</span>
+		</div>
+	</div>
+</script>

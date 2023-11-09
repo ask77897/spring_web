@@ -2,10 +2,10 @@
 	<h1 class="text-center mb-5">글쓰기</h1>
 	<form name="frm">
 		<input name="title" class="form-control mb-2" placeholder="제목을 입력하세요." />
-		<textarea name="body" class="form-control" rows="10" placeholder="내용을 입력해주세요"></textarea>
-		<div class="text-center mt-3">
-			<button type="submit" class="btn btn-dark">저장</button>
-			<button type="reset" class="btn btn-secondary">취소</button>
+		<textarea name="body" class="form-control" rows="10" placeholder="내용을 입력하세요."></textarea>
+		<div class="text-center my-3">
+			<button type="submit" class="btn btn-sm btn-dark px-5">등록</button>
+			<button type="reset" class="btn btn-sm btn-secondary px-5">취소</button>
 		</div>
 	</form>
 </div>
@@ -14,21 +14,23 @@
 		e.preventDefault();
 		const title = $(frm.title).val();
 		const body = $(frm.body).val();
-		const uid = "black";
+		const writer = "black";
 		if (title == "") {
 			alert("제목을 입력하세요.");
 			$(frm.title).focus();
 			return;
 		}
-		if (confirm("저장하시겠습니까?")) {
+		if (confirm("게시글을 등록하시겠습니까?")) {
+			const data = {title, body, writer};
 			$.ajax({
-				type:"post",
-				url:"/posts/insert",
-				data:{title, body, writer:uid},
-				success:function(){
-					location.href="/posts";
+				type: 'post',
+				url: '/posts/insert',
+				data: JSON.stringify(data),
+				contentType: "application/json",
+				success: function () {
+					location.href = "/posts/list"
 				}
-			})
+			});
 		}
-	})
+	});
 </script>

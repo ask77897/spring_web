@@ -1,0 +1,44 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">로그인</h1>
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<form name="frm" class="card p-3">
+				<div class="input-group mb-2">
+					<span class="input-group-text">아이디</span>
+					<input name="uid" class="form-control"/>
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">비밀번호</span>
+					<input name="upass" class="form-control" type="password"/>
+				</div>
+				<div>
+					<button class="btn btn-dark w-100">로그인</button>
+				</div>
+				<div class="text-center"><a href="">아이디찾기</a>/<a href="">비밀번호찾기</a></div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+	$(frm).on("submit", function(e){
+		e.preventDefault();
+		const uid = $(frm.uid).val();
+		const upass = $(frm.upass).val();
+		if(uid==""){
+			alert("아이디를 입력하세요.");
+			$(frm.uid).focus();
+		}else if(upass==""){
+			alert("비밀번호를 입력하세요.");
+			$(frm.upass).focus();
+		}
+		$.ajax({
+			type:'post',
+			url:'/user/login',
+			data:JSON.stringify({uid, upass}),
+			contentType:"application/json",
+			success:function(data){
+				alert(data);
+			}
+		})
+	})
+</script>

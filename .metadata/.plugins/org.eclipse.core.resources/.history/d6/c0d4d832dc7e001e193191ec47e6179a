@@ -1,0 +1,17 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">로그인</h1>
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<form class="card p-3">
+				<div class="input-group mb-2">
+					<span class="input-group-text">아 이 디</span>
+					<input class="form-control"/>
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">비밀번호</span>
+					<input class="form-control"/>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

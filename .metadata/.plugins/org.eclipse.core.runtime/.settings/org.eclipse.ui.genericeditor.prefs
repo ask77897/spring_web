@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 matchingBracketsColor=244,240,250
+org.eclipse.ui.genericeditor.togglehighlight=true
 overriddenByCSS=,matchingBracketsColor,

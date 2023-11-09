@@ -5,37 +5,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.dao.MysqlDAO;
-import com.example.dao.PostDAO;
-import com.example.domain.PostVO;
+import com.example.dao.UserDAO;
 
 @SpringBootTest
 public class MysqlTest {
 	@Autowired
 	MysqlDAO dao;
-	
+
 	@Autowired
-	PostDAO pdao;
-	
+	UserDAO udao;
+
 	@Test
 	public void now() {
 		System.out.println("NOW : " + dao.now());
 	}
 	
-	@Test
-	public void delete() {
-		pdao.delete(2);
-	}
+//	@Test
+//	public void list() {
+//		pdao.list();
+//	}
 	
-	@Test
-	public void list() {
-		pdao.list();
-	}
 	
+	
+
+//	@Test
+//	public void delete() {
+//		pdao.delete(2);
+//	}
+//	
+//	@Test
+//	public void list() {
+//		pdao.list();
+//	}
+//	
 	@Test
 	public void read() {
-		pdao.read(4);
+		udao.read("blue");
 	}
-	
+
 //	@Test
 //	public void insert() {
 //		PostVO vo = new PostVO();
@@ -43,7 +50,7 @@ public class MysqlTest {
 //		vo.setWriter("blue");
 //		pdao.insert(vo);
 //	}
-	
+
 //	@Test
 //	public void update() {
 //		PostVO vo = new PostVO();
