@@ -1,0 +1,48 @@
+<div class="my-5 row justify-content-center">
+	<h1 class="text-center mb-5">회원가입</h1>
+	<div class="col-md-6">
+		<div class="card p-3">
+			<form name="frm">
+				<div class="input-group mb-2">
+					<span class="input-group-text">이름</span>
+					<input name="uname" class="form-control">
+					<button class="btn btn-dark" type="button">중복체크</button>
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">아이디</span>
+					<input name="uid" class="form-control">
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">비밀번호</span>
+					<input name="upass" type="password" class="form-control">
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">전화번호</span>
+					<input name="phone" class="form-control">
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">주소</span>
+					<input name="address1" class="form-control" readonly>
+					<button class="btn btn-dark" id="btn_search" type="button">검색</button>
+				</div>
+				<div><input name="address2" class="form-control"></div>
+				<div class="text-center mt-3">
+					<button class="btn btn-dark" id="btn_insert">가입</button>
+					<button class="btn btn-secondary" type="reset">취소</button>
+				</div>
+			</form>				
+		</div>		
+	</div>
+</div>
+<script>
+	$("#btn_search").on("click", function(){
+		new daum.Postcode({
+			oncomplete:function(data){
+				//console.log(data);
+				const address = data.address;
+				const building = data.buildingName ? data.buildingName:'';
+				$(frm.address1).val(`${address}(${building})`);
+			}
+		}).open();
+	})
+</script>

@@ -1,0 +1,29 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">내 정보</h1>
+	<div id="div_mypage"></div>
+</div>
+<script>
+	getMypage();
+	function getMypage(){
+		$.ajax({
+			type:'get',
+			url:'/users/read',
+			data:{uid:sessionStorage.getItem("uid")},
+			success:function(data){
+				//console.log(data);
+				const temp = Handlebars.compile($("#temp_mypage").html());
+				$("#div_mypage").html(temp(data))
+			}
+		})
+	}
+</script>
+<script id="temp_mypage" type="x-handlebars-template">
+	<div>
+		<div>
+		</div>
+		<div>
+			<div>{{uname}}</div>
+		</div>		
+	</div>
+		
+</script>

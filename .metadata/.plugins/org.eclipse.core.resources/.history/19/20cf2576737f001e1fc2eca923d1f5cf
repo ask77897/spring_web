@@ -1,0 +1,66 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">정보수정</h1>
+	<div id="div_mypage" class="row justify-content-center"></div>
+</div>
+<script>
+	getMypage();
+	
+	$("#div_mypage").on("click", "#btn_update", function(){
+		const uname = $(frm.uname).val();
+		const phone = $(frm.phone).val();
+		const address1 = $(frm.address1).val();
+		const address2 = $(frm.address2).val();
+		//alert(`${uname}\n${phone}\n${address1}\n${address2}`);
+		if(confirm("수정한 내용을 저장하시겠습니까?")){
+			$.ajax({
+				type:'post',
+				url:'/users/update',
+				data:JSON.stringify({uname, phone, address1, address2, uid:sessionStorage.getItem("uid")}),
+				contentType: "application/json",
+				success:function(){
+					alert("수정되었습니다.");
+					location.href="/users/mypage"
+				}
+			})
+		}
+	})
+	function getMypage() {
+		$.ajax({
+			type: 'get',
+			url: '/users/read',
+			data: {uid: sessionStorage.getItem("uid")},
+			success: function (data) {
+				//console.log(data);
+				const temp = Handlebars.compile($("#temp_mypage").html());
+				$("#div_mypage").html(temp(data))
+			}
+		})
+	}
+</script>
+<script id="temp_mypage" type="x-handlebars-template">
+	<div class="col-md-6">
+		<div class="card p-3">
+			<form name="frm">
+				<div class="input-group mb-2">
+					<span class="input-group-text">이름</span>
+					<input name="uname" class="form-control" value="{{uname}}">
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">전화번호</span>
+					<input name="phone" class="form-control" value="{{phone}}">
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">주소</span>
+					<input name="address1" class="form-control" value="{{address1}}">
+					<button class="btn btn-dark" id="btn_search" type="button">검색</button>
+				</div>
+				<div><input name="address2" class="form-control" value="{{address2}}"></div>
+				<div class="text-center mt-3">
+					<button class="btn btn-dark" id="btn_update" type="button">수정</button>
+					<button class="btn btn-secondary" type="reset">취소</button>
+				</div>
+			</form>				
+		</div>		
+	</div>
+		
+</script>

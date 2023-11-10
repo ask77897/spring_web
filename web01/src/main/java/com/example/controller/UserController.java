@@ -13,4 +13,28 @@ public class UserController {
 		model.addAttribute("pageName", "users/login");
 		return "home";
 	}
+	
+	@GetMapping("/mypage")
+	public String mypage(Model model) {
+		model.addAttribute("pageName", "users/mypage");
+		return "home";
+	}
+	
+	@GetMapping("/update")
+	public String update(Model model) {
+		model.addAttribute("pageName", "users/update");
+		return "home";
+	}
+	
+	@GetMapping("/password")
+	public String password(Model model) {
+		model.addAttribute("pageName", "users/password");
+		return "home";
+	}
+	
+	@GetMapping("/insert")
+	public String insert(Model model) {
+		model.addAttribute("pageName", "users/insert");
+		return "home";
+	}
 }

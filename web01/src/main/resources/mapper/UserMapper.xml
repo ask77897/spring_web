@@ -9,4 +9,18 @@
     <select id="login" resultType="com.example.domain.UserVO">
     	select * from users where uid=#{uid}
     </select>
+    <update id="update">
+    	update users set uname=#{uname}, phone=#{phone}, address1=#{address1}, address2=#{address2}
+    	where uid=#{uid}
+    </update>
+    <update id="update_photo">
+    	update users set photo=#{photo} where uid=#{uid}
+    </update>
+    <update id="update_password">
+    	update users set upass=#{upass} where uid=#{uid}
+    </update>
+    <insert id="insert">
+    	insert into users(uid, upass, uname, phone, address1, address2)
+    	value(#{uid}, #{upass}, #{uname}, #{phone}, #{address1}, #{address2})
+    </insert>
 </mapper>
