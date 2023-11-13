@@ -29,3 +29,8 @@
 	border: 1px solid grey;
 	cursor: pointer
 }
+
+a{
+	text-decoration: none;
+	color: inherit;
+}

@@ -20,4 +20,8 @@
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="com.example.domain.UserVO"/>
     <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
+    <fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.IOUtils"/>
+    <fullyQualifiedTypeName name="org.apache.commons.io.IOUtils"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpHeaders"/>
+    <fullyQualifiedTypeName name="org.springframework.core.io.Resource"/>
 </qualifiedTypeNameHistroy>

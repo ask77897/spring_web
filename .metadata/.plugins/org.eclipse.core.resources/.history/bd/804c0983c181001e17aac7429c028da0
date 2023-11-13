@@ -1,0 +1,18 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">My Page</h1>
+	<div id="div_mypage" class="row"></div>
+</div>
+<script id="temp_mypage" type="x-handlebars-template">
+	<div class="col-md-8">
+		<div>
+			<img src="http://via.placeholder.com/200x200" width="200">
+		</div>
+		<div class="card p-3">
+			
+		</div>
+	</div>
+</script>
+<script>
+	const temp = Handlebars.compile($("#temp_mypage").html());
+	$("#div_mypage").html(temp());
+</script>

@@ -1,0 +1,55 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">정보수정</h1>
+	<div id="div_user" class="row justify-content-center"></div>
+</div>
+<script id="temp_user" type="x-handlebars-template">
+	<div class="col-md-8">
+		<form class="card p-3" name="frm">
+			<div class="input-group mb-2">
+				<span class="input-group-text">이름</span>
+				<input class="form-control" name="uname" value="{{uname}}">
+			</div>
+			<div class="input-group mb-2">
+				<span class="input-group-text">전화번호</span>
+				<input class="form-control" name="phone" value="{{phone}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-text">주소</span>
+				<input class="form-control"  name="address1"  value="{{address1}}" readonly>
+				<button id="btn_search" class="btn btn-dark" type="button">검색</button>
+			</div>
+			<input class="form-control" name="address2" placeholder="상세주소" value="{{address2}}">
+			<div class="text-center my-3">
+				<button class="btn btn-dark" id="btn_update" type="button">수정</button>
+				<button class="btn btn-secondary" type="reset">취소</button>
+			</div>
+		</form>
+	</div>
+</script>
+<script>
+	$("#div_user").on("click", "btn_update", function(e){
+		alert("..")
+		const uname = $(frm.uname).val();
+		const phone = $(frm.phone).val();
+		const address1 = $(frm.address1).val();
+		const address2 = $(frm.address2).val();
+	})
+	$("#div_user").on("click", "#btn_search", function(){
+		//alert("..")
+		new daum.Postcode({
+			oncomplete:function(data){
+				const address = data.address;
+				const building = data.buildingName ? `(${data.buildingName})` : "";
+				$(frm.address1).val(address + buildingName);
+			}
+		}).open();
+	})
+	$.ajax({
+		type: 'get',
+		url: '/users/read?uid=' + sessionStorage.getItem("uid"),
+		success: function (data) {
+			const temp = Handlebars.compile($("#temp_user").html());
+			$("#div_user").html(temp(data));
+		}
+	})
+</script>

@@ -1,0 +1,63 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">게시글</h1>
+	<div class="text-end mb-2">
+		<a href="/posts/insert" class="btn btn-dark btn-sm px-5">글쓰기</a>
+	</div>
+	<div id="div_posts"></div>
+	<div id="pagination" class="pagination justify-content-center mt-5"></div>
+</div>
+<script id="temp_posts" type="x-handlebars-template">
+	<table class="table table-striped table-dark">
+		<tr class="text-center">
+			<th>글번호</th>
+			<th>글제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+		</tr>
+		{{#each .}}
+			<tr>
+				<td class="text-center">{{pid}}</td>
+				<td>
+					<a href="/posts/read?pid={{pid}}">
+						<div class="ellipsis">
+							{{title}}
+						</div>
+					</a>
+				</td>
+				<td class="text-center">{{uname}}({{writer}})</td>
+				<td class="text-end">{{fmtdate}}</td>
+			</tr>
+		{{/each}}
+	</table>
+</script>
+<script>
+	let page=1;
+	let size=5;
+
+	function getPosts() {
+		$.ajax({
+			type: 'get',
+			url: '/posts/list1.json',
+			data:{page, size},
+			success: function (data) {
+				//console.log(data);
+				const temp = Handlebars.compile($("#temp_posts").html());
+				$("#div_posts").html(temp(data))
+			}
+		})
+	}
+	$('#pagination').twbsPagination({
+        totalPages:10, //총 페이지 번호 수
+        visiblePages: 5, // 하단에서 한 번에 보여 지는 페이지 번호 수
+        startPage : 1, // 시작 시 표시되는 현재 페이지
+        initiateStartPageClick: false, // 플러그인이 시작 시 페이지 버튼 클릭 여부 (default : true) 
+        first : '<<', // 페이지네이션 버튼 중 처음으로 돌아가는 버튼에 쓰여 있는 텍스트
+        prev : '<', // 이전 페이지 버튼에 쓰여 있는 텍스트
+        next : '>', // 다음 페이지 버튼에 쓰여 있는 텍스트
+        last : '>>', // 페이지네이션 버튼 중 마지막으로 가는 버튼에 쓰여 있는 텍스트
+        onPageClick: function (event, clickPage) {
+            page=clickPage;
+            getposts(); 
+        }
+    });
+</script>

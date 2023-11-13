@@ -23,6 +23,16 @@ public class PostRestController {
 		return dao.list();
 	}
 	
+	@GetMapping("/list1.json") //localhost:8080/posts/list1.json?page=1&size=3
+	public List<HashMap<String, Object>> list1(int page, int size, String key, String query){
+		return dao.list1(page, size, key, query);
+	}
+	
+	@GetMapping("/total")
+	public int total(String key, String query){
+		return dao.total(key, query);
+	}
+	
 	@GetMapping("/read.json") //localhost:8080/posts/read.json?pid=4
 	public HashMap<String, Object> read(int pid){
 		return dao.read(pid);

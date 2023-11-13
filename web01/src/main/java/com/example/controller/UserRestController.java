@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +35,20 @@ public class UserRestController {
 		}
 		return result;
 	}
+	
 	@GetMapping("/read") //localhost:8080/users/read?uid=black
 	public HashMap<String, Object> read(String uid){
 		return dao.read(uid);
 	}
 	
 	@PostMapping("/update")
-	public void update(@RequestBody UserVO vo) {
+	public void update(@RequestBody UserVO vo){
 		//System.out.println(vo.toString());
 		dao.update(vo);
 	}
 	
-	@PostMapping("/photo")
-	public void photo(String uid, MultipartHttpServletRequest multi)throws Exception {
+	@PostMapping("/upload")
+	public void upload(String uid, MultipartHttpServletRequest multi) throws Exception{
 		MultipartFile file = multi.getFile("file");
 		String filePath = "/upload/photo/";
 		String fileName = System.currentTimeMillis() + ".jpg";
@@ -54,16 +56,18 @@ public class UserRestController {
 		UserVO vo = new UserVO();
 		vo.setUid(uid);
 		vo.setPhoto(filePath + fileName);
-		dao.update_photo(vo);
+		dao.photo(vo);
 	}
 	
 	@PostMapping("/password")
-	public void password(@RequestBody UserVO vo) {
-		dao.update_password(vo);
+	public void password(@RequestBody UserVO vo){
+		//System.out.println(vo.toString());
+		dao.password(vo);
 	}
 	
 	@PostMapping("/insert")
-	public void insert(@RequestBody UserVO vo) {
+	public void insert(@RequestBody UserVO vo){
+		//System.out.println(vo.toString());
 		dao.insert(vo);
 	}
 }

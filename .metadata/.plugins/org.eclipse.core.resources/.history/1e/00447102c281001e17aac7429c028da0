@@ -1,0 +1,21 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">My Page</h1>
+	<div id="div_mypage" class="row justify-content-center"></div>
+</div>
+<script id="temp_mypage" type="x-handlebars-template">
+	<div class="col-md-8">
+		<div class="text-center mb-3">
+			<img src="http://via.placeholder.com/200x200" width="200" class="photo">
+		</div>
+		<div class="card p-3">
+			<div>이름 : {{uname}}</div>
+			<div>전화번호 : {{phone}}</div>
+			<div>주소 : {{address1}} {{address2}}</div>
+			<div>가입일 : {{fmtdate}}</div>
+		</div>
+	</div>
+</script>
+<script>
+	const temp = Handlebars.compile($("#temp_mypage").html());
+	$("#div_mypage").html(temp());
+</script>

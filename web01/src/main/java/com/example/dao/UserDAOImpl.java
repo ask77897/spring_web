@@ -24,19 +24,17 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public void update(UserVO vo) {
 		session.update(namespace + ".update", vo);
-		
 	}
 	@Override
-	public void update_photo(UserVO vo) {
-		session.update(namespace + ".update_photo", vo);
+	public void photo(UserVO vo) {
+		session.update(namespace + ".photo", vo);
 	}
 	@Override
-	public void update_password(UserVO vo) {
-		session.update(namespace + ".update_password", vo);
+	public void password(UserVO vo) {
+		session.update(namespace + ".password", vo);
 	}
 	@Override
 	public void insert(UserVO vo) {
 		session.insert(namespace + ".insert", vo);
 	}
-
 }

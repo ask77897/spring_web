@@ -7,10 +7,39 @@
 		where writer=uid
 		order by pid desc;
 	</select>
+	<select id="list1" resultType="hashmap">
+		select p.*, date_format(p.regdate, "%Y-%m-%d %T") fmtdate, uname
+		from posts p, users u
+		where p.writer=u.uid 
+		<if test="key=='title'">
+			and title like concat('%', #{query}, '%')
+		</if>
+		<if test="key=='body'">
+			and body like concat('%', #{query}, '%')
+		</if>
+		<if test="key=='writer'">
+			and writer like concat('%', #{query}, '%')
+		</if>
+		order by pid desc
+		limit #{start}, #{size};
+	</select>
+	<select id="total" resultType="int">
+		select count(*) from posts
+		<if test="key=='title'">
+			where title like concat('%', #{query}, '%')
+		</if>
+		<if test="key=='body'">
+			where body like concat('%', #{query}, '%')
+		</if>
+		<if test="key=='writer'">
+			where writer like concat('%', #{query}, '%')
+		</if>
+	</select>
 	<select id="read" resultType="hashmap">
 		select p.*, date_format(p.regdate, "%Y-%m-%d %T") fmtdate, uname
 		from posts p, users u
-		where writer=uid and pid=#{pid};
+		where writer=uid and
+		pid=#{pid};
 	</select>
 	<insert id="insert">
 		insert into posts(title, body, writer)
@@ -21,7 +50,8 @@
 		where pid=#{pid}
 	</delete>
 	<update id="update">
-		update posts set title=#{title}, body=#{body}, regdate=now()
+		update posts set title=#{title}, body=#{body},
+		regdate=now()
 		where pid=#{pid}
 	</update>
 </mapper>

@@ -1,0 +1,41 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">정보수정</h1>
+	<div id="div_user" class="row justify-content-center"></div>
+</div>
+<script id="temp_user" type="x-handlebars-template">
+	<div class="col-md-8">
+		<form class="card p-3">
+			<div class="input-group mb-2">
+				<span class="input-group-text">이름</span>
+				<input class="form-control" value="{{uname}}">
+			</div>
+			<div class="input-group mb-2">
+				<span class="input-group-text">전화번호</span>
+				<input class="form-control" value="{{phone}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-text">주소</span>
+				<input class="form-control" value="{{address1}}">
+				<button id="btn_search" class="btn btn-dark" type="button">검색</button>
+			</div>
+			<input class="form-control" placeholder="상세주소" value="{{address2}}">
+			<div class="text-center my-3">
+				<button class="btn btn-dark" type="submit">수정</button>
+				<button class="btn btn-secondary" type="reset">취소</button>
+			</div>
+		</form>
+	</div>
+</script>
+<script>
+	$("#btn_search").on("click", function(){
+		alert("..")
+	})
+	$.ajax({
+		type: 'get',
+		url: '/users/read?uid=' + sessionStorage.getItem("uid"),
+		success: function (data) {
+			const temp = Handlebars.compile($("#temp_user").html());
+			$("#div_user").html(temp(data));
+		}
+	})
+</script>

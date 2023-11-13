@@ -1,0 +1,32 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">정보수정</h1>
+	<div id="div_user" class="row justify-content-center"></div>
+</div>
+<script id="temp_user" type="x-handlebars-template">
+	<div>
+		<form class="card p-3">
+			<div class="input-group mb-2">
+				<span class="input-group-text">이름</span>
+				<input class="form-control">
+			</div>
+			<div class="input-group mb-2">
+				<span class="input-group-text">전화번호</span>
+				<input class="form-control">
+			</div>
+			<div class="input-group">
+				<span class="input-group-text">주소</span>
+				<input class="form-control">
+				<button class="btn btn-dark">검색</button>
+			</div>
+			<input class="form-control" placeholder="상세주소">
+			<div class="text-center my-3">
+				<button class="btn btn-dark">수정</button>
+				<button class="btn btn-secondary">취소</button>
+			</div>
+		</form>
+	</div>
+</script>
+<script>
+	const temp = Handlebars.compile($("#temp_user").html());
+	$("#div_user").html(temp());
+</script>
