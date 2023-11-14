@@ -1,0 +1,9 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">댓글 관리</h1>
+</div>
+<script>
+	let page = 1;
+	let size = 3;
+	let pid = "[[${param.pid}]]";
+	alert(pid)
+</script>

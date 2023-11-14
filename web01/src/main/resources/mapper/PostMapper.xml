@@ -54,4 +54,10 @@
 		regdate=now()
 		where pid=#{pid}
 	</update>
+	<update id="viewcnt">
+		update posts set viewcnt=viewcnt + 1 where pid=#{pid}
+	</update>
+	<update id="commcnt">
+		update posts set commcnt=commcnt + #{cnt} where pid=#{pid}
+	</update>
 </mapper>

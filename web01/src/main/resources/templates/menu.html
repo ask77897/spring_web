@@ -30,6 +30,9 @@
 	</div>
 </nav>
 <script>
+	if(getCookie("uid")){
+		sessionStorage.setItem("uid", getCookie("uid"));
+	}
 	const uid = sessionStorage.getItem("uid");
 	if(uid){
 		$("#login, #mypage, #logout").toggle();
@@ -40,6 +43,7 @@
 		e.preventDefault();
 		if(confirm("로그아웃 하시겠습니까?")){
 			sessionStorage.clear();
+			delCookie("uid");
 			location.href="/";
 		}
 	})

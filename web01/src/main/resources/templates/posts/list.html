@@ -29,6 +29,7 @@
 			<th>글제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
+			<th>조회수</th>
 		</tr>
 		{{#each .}}
 			<tr>
@@ -36,12 +37,13 @@
 				<td>
 					<a href="/posts/read?pid={{pid}}">
 						<div class="ellipsis">
-							{{title}}
+							{{title}} ({{commcnt}})
 						</div>
 					</a>
 				</td>
 				<td class="text-center">{{uname}}({{writer}})</td>
 				<td class="text-end">{{fmtdate}}</td>
+				<td class="text-center">{{viewcnt}}</td>
 			</tr>
 		{{/each}}
 	</table>
