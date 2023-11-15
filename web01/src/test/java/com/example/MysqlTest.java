@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.dao.MysqlDAO;
+import com.example.dao.ProDAO;
 import com.example.dao.UserDAO;
 
 @SpringBootTest
@@ -14,18 +15,24 @@ public class MysqlTest {
 
 	@Autowired
 	UserDAO udao;
+	
+	@Autowired
+	ProDAO pdao;
 
-	@Test
-	public void now() {
-		System.out.println("NOW : " + dao.now());
-	}
+//	@Test
+//	public void now() {
+//		System.out.println("NOW : " + dao.now());
+//	}
 	
 //	@Test
 //	public void list() {
 //		pdao.list();
 //	}
 	
-	
+	@Test
+	public void list() {
+		pdao.list();
+	}
 	
 
 //	@Test
@@ -38,10 +45,10 @@ public class MysqlTest {
 //		pdao.list();
 //	}
 //	
-	@Test
-	public void read() {
-		udao.read("blue");
-	}
+//	@Test
+//	public void read() {
+//		udao.read("blue");
+//	}
 
 //	@Test
 //	public void insert() {

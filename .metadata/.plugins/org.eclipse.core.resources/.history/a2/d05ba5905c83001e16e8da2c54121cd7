@@ -1,0 +1,29 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">교수 등록</h1>
+	<div class="row justify-content-center">
+		<div class="col-6">
+			<form class="card p-3">
+				<div class="input-group mb-2">
+					<span class="input-group-text">교수번호</span>
+					<input class="form-control">
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">교수이름</span>
+					<input class="form-control">
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">교수학과</span>
+					<select class="form-select">
+						<option value="전산">전자계산학과</option>
+						<option value="전자">전자공학과</option>
+						<option value="건축">건축공학과</option>
+					</select>
+				</div>
+				<div class="input-group mb-2">
+					<span class="input-group-text">교수직급</span>
+					<input type="radio" class="form-control">정교수
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

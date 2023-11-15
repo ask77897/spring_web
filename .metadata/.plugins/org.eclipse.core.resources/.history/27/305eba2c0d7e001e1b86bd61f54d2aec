@@ -1,7 +1,0 @@
-<div class="my-5">
-	<h1 class="text-center mb-5">글쓰기</h1>
-	<form>
-		<input class="form-control mb-2" placeholder="제목을 입력하세요." />
-		<textarea class="form-control" rows="10" placeholder="내용을 입력해주세요"></textarea>
-	</form>
-</div>

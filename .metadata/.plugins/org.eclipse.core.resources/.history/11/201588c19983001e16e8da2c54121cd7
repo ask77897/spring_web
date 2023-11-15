@@ -1,0 +1,83 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">교수 목록</h1>
+	<div class="row ">
+		<div class="col">
+			<form name="frm" class="input-group">
+				<select class="form-select">
+					<option value="pcode">교수번호</option>
+					<option value="pname" selected>교수이름</option>
+					<option value="dept">교수학과</option>
+					<option value="title">교수직책</option>
+				</select>
+				<input name="query" class="form-control" placeholder="검색">
+				<button class="btn btn-dark btn-sm">검색</button>
+				<span id="total" class="mt-2 ms-3"></span>
+			</form>
+		</div>
+		<div class="col text-end">
+			<a href="/pro/insert" class="btn btn-dark px-5">교수등록</a>
+		</div>
+	</div>
+	<hr>
+	<div id="div_pro"></div>
+</div>
+<script id="temp_pro" type="x-handlebars-template">
+	<table class="table table-striped table-dark">
+		<tr class="text-center">
+			<th>교수번호</th>
+			<th>이름</th>
+			<th>전공</th>
+			<th>직책</th>
+			<th>임용일</th>
+			<th>급여</th>
+		</tr>
+		{{#each .}}
+		<tr class="text-center">
+			<td>{{pcode}}</td>
+			<td><a href="/pro/read?pcode={{pcode}}">{{pname}}</a></td>
+			<td>{{dept}}</td>
+			<td>{{title}}</td>
+			<td>{{fmtdate}}</td>
+			<td>{{fmtsalary}}원</td>
+		</tr>
+		{{/each}}
+	</table>
+</script>
+<script>
+	let page = 1;
+	const size = 3;
+	
+	getList();
+	function getList() {
+		const query = $(frm.query).val();
+		const key = $(frm.key).val();
+		getTotal();
+		$.ajax({
+			type: 'get',
+			url: '/pro/slist.json',
+			data:{page, size, query, key},
+			success: function (data) {
+				const temp = Handlebars.compile($("#temp_pro").html());
+				$("#div_pro").html(temp(data));
+			}
+		})
+	}
+	function getTotal(){
+		const query = $(frm.query).val();
+		const key = $(frm.key).val();
+		$.ajax({
+			type:'get',
+			url:'/pro/total',
+			data:{key, query},
+			success:function(data){
+				//alert(data);
+				$("#total").html(`검색 결과:${data}건`)
+			}
+		})
+	}
+	$(frm).on("submit", function(e){
+		e.preventDefault();
+		page=1;
+		getList();
+	})
+</script>

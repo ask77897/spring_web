@@ -1,0 +1,16 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">교수정보</h1>
+</div>
+<script>
+	const pcode="[[${param.pcode}]]"
+	$(window).on("load", function(){
+		$.ajax({
+			type:'get',
+			url:'/pro/read.json',
+			data:{pcode},
+			success:function(data){
+				console.log(data);
+			}
+		})
+	})
+</script>

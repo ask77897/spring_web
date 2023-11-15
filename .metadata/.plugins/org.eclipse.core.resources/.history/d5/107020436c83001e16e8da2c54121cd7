@@ -1,0 +1,26 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">교수정보</h1>
+	<div id="div_pro" class="row"></div>
+</div>
+<script id="temp_pro" type="x-handlebars-template">
+	<div class="col">
+		<div class="card p-3">
+			<div>교수번호 : {{pcode}}</div><hr>
+		</div>
+	</div>
+</script>
+<script>
+	const pcode="[[${param.pcode}]]"
+	$(window).on("load", function(){
+		$.ajax({
+			type:'get',
+			url:'/pro/read.json',
+			data:{pcode},
+			success:function(data){
+				//console.log(data);
+				const temp = Handlebars.compile($("#temp_pro").html());
+				$("#div_pro").html(temp(data));
+			}
+		})
+	})
+</script>

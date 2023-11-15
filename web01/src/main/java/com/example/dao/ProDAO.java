@@ -1,0 +1,19 @@
+package com.example.dao;
+
+import java.util.HashMap;
+import java.util.List;
+
+import com.example.domain.ProVO;
+import com.example.domain.QueryVO;
+
+public interface ProDAO {
+	public List<HashMap<String, Object>> list();
+	public int code();
+	public void insert(ProVO vo);
+	public HashMap<String, Object> read(String pcode);
+	public List<HashMap<String, Object>> stu_list(String pcode);
+	public List<HashMap<String, Object>> cou_list(String pcode);
+	public void update(ProVO vo);
+	public List<HashMap<String, Object>> slist(QueryVO vo);
+	public int total(QueryVO vo);
+}

@@ -1,0 +1,31 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">교수 목록</h1>
+	<div id="div_pro"></div>
+</div>
+<script id="temp_pro" type="x-handlebars-template">
+	<table class="table">
+		{{#each .}}
+		<tr>
+			<td>{{pcode}}</td>
+			<td>{{pname}}</td>
+			<td>{{dept}}</td>
+			<td>{{title}}</td>
+			<td>{{fmtdate}}</td>
+			<td>{{fmtsalary}}</td>
+		</tr>
+		{{/each}}
+	</table>
+</script>
+<script>
+	getList();
+	function getList(){
+		$.ajax({
+			type:'get',
+			url:'/pro/list.json',
+			success:function(data){
+				const temp = Handlebars.compile($("#temp_pro").html());
+				$("#div_pro").html(temp(data));
+			}
+		})
+	}
+</script>
