@@ -1,0 +1,30 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">강좌 정보</h1>
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+				type="button" role="tab" aria-controls="nav-home" aria-selected="true">강좌정보</button>
+			<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+				type="button" role="tab" aria-controls="nav-profile" aria-selected="false">수강학생</button>
+		</div>
+	</nav>
+	<div class="tab-content" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+			<div id="div_cou" class="row justify-content-center mt-5"></div>
+		</div>
+		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+			<div id="div_enroll" class="mt-5"></div>
+		</div>
+	</div>
+</div>
+<script>
+	const lcode="[[${param.lcode}]]";
+	$.ajax({
+		type:'get',
+		url:'/cou/read.json',
+		data:{lcode},
+		success:function(data){
+			console.log(data);
+		}
+	})
+</script>

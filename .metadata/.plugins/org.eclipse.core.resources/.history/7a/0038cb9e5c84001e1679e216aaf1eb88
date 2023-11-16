@@ -1,0 +1,14 @@
+<div class="my-5">
+	<h1 class="text-center mb-5">강좌 정보</h1>
+</div>
+<script>
+	const lcode="[[${param.lcode}]]";
+	$.ajax({
+		type:'get',
+		url:'/cou/read.json',
+		data:{lcode},
+		success:function(data){
+			console.log(data);
+		}
+	})
+</script>
