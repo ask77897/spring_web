@@ -13,12 +13,15 @@
 			<div id="div_stu" class="row justify-content-center mt-5"></div>
 		</div>
 		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-			<div id="div_enroll" class="mt-5"></div>
+			<div id="div_cou" class="card p-3 mt-5"></div>
+			<div id="div_enroll" class="mt-2"></div>
 		</div>
 	</div>
 </div>
 <script>
 	const scode = "[[${param.scode}]]";
+	
+	getCou();
 	$(window).on("load", function () {
 		$.ajax({
 			type: 'get',
@@ -42,6 +45,48 @@
 			}
 		})
 	}
+	$("#div_enroll").on("click", ".btn_delete", function(){
+		const lcode = $(this).attr("lcode");
+		if(confirm(`${scode}학생의 ${lcode}강좌를 취소하시겠습니까?`)){
+			$.ajax({
+				type:'get',
+				url:'/enroll/delete',
+				data:{scode, lcode},
+				success:function(){
+					alert("해당 강좌가 수강취소 되었습니다.");
+					getEnroll();
+				}
+			})
+		}
+	});
+	function getCou(){
+		$.ajax({
+			type:'get',
+			url:'/cou/list.json',
+			data:{page:1, size:100/*, key:'lcode', query:""*/},
+			success:function(data){
+				//console.log(data)
+				const temp = Handlebars.compile($("#temp_cou").html());
+				$("#div_cou").html(temp(data));
+			}
+		})
+	}
+	$("#div_cou").on("click", "#btn_insert", function(){
+		const lcode = $("#lcode").val();
+		//alert(lcode);
+		if(confirm(`[${scode}] ${lcode}강좌를 수강신청하시겠습니까?`)){
+			$.ajax({
+				type:'get',
+				url:'/enroll/insert',
+				data:{scode, lcode},
+				success:function(){
+					alert("수강신청 되었습니다.");
+					getCou();
+					getEnroll();
+				}
+			})
+		}
+	})
 </script>
 <script id="temp_stu" type="x-handlebars-template">
 	<div class="col-md-6">
@@ -64,6 +109,8 @@
 			<th>담당교수</th>
 			<th>인원수</th>
 			<th>성적</th>
+			<th>신청일</th>
+			<th>수강취소</th>
 		</tr>
 		{{#each .}}
 		<tr class="text-center">
@@ -72,7 +119,19 @@
 			<td>{{pname}} ({{instructor}})</td>
 			<td>{{persons}}/{{capacity}}</td>
 			<td>{{grade}}</td>
+			<td>{{edate}}</td>
+			<td><button class="btn btn-secondary btn-sm btn_delete" lcode="{{lcode}}">수강취소</button></td>
 		</tr>
 		{{/each}}
 	</table>
+</script>
+<script id="temp_cou" type="x-handlebars-template">
+	<div class="input-group">
+		<select class="form-select" id="lcode">
+			{{#each list}}
+				<option value="{{lcode}}">{{lname}} {{pname}} ({{persons}}/{{capacity}})</option>
+			{{/each}}
+		</select>
+		<button class="btn btn-dark" id="btn_insert">수강신청</button>
+	</div>
 </script>

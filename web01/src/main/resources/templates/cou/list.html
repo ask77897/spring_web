@@ -44,51 +44,46 @@
 </script>
 <script>
 	let page = 1;
-	const size = 2;
-	getTotal();
+	const size = 3;
+	let total = 0;
+	getList();
 	
 	$(frm).on("submit", function(e){
 		e.preventDefault();
-		page = 1;
-		getTotal();
+		//page = 1;
+		getList();
 	})
+
 	function getList(){
-		const query = $(frm.query).val();
 		const key = $(frm.key).val();
+		const query = $(frm.query).val();
 		$.ajax({
 			type:'get',
 			url:'/cou/list.json',
 			data:{page, size, key, query},
 			success:function(data){
-				$("#total").html(`검색 결과 : ${data.total}건`)
-				if(data==0){
-					$("#div_cou").html("<h3 class='text-center my-5'>검색 결과가 존재하지 않습니다.</h3>")
+				//console.log(data);
+				$("#total").html(`검색결과 : ${data.total}건`)
+				if(data.total==0){
+					$("#div_cou").html("<h3 class='text-center my-5'>검색결과가 없습니다.</h3>");
 				}else{
 					const temp = Handlebars.compile($("#temp_cou").html());
 					$("#div_cou").html(temp(data));
+					if(total!=data.total){
+						const totalPages = Math.ceil(data.total/size);
+	               		$("#pagination").twbsPagination("changeTotalPages", totalPages, 1);
+	               		total=data.total;
+					}
 				}
-			}
-		})
-	}
-	function getTotal(){
-		const query = $(frm.query).val();
-		const key = $(frm.key).val();
-		$.ajax({
-			type:'get',
-			url:'/cou/list.json',
-			data:{query, key, page, size},
-			success:function(data){
 				if(data.total>size){
 					$("#pagination").show();
-					const totalPages = Math.ceil(data.total/size);
-	                $("#pagination").twbsPagination("changeTotalPages", totalPages, page)
-                }else{
+				}else{
 					$("#pagination").hide();
-					getList();
 				}
 			}
 		})
 	}
+
 	$('#pagination').twbsPagination({
 		totalPages: 10, //총 페이지 번호 수
 		visiblePages: 5, // 하단에서 한 번에 보여 지는 페이지 번호 수

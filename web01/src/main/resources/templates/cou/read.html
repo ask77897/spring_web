@@ -30,7 +30,7 @@
 	})
 	$.ajax({
 		type:'get',
-		url:'/cou/enroll',
+		url:'/cou/enroll.json',
 		data:{lcode},
 		success:function(data){
 			const temp = Handlebars.compile($("#temp_enroll").html());

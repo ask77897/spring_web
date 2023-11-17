@@ -46,14 +46,17 @@ public class ProRestController {
 	}
 	
 	@GetMapping("/slist.json")
-	public List<HashMap<String, Object>> slist(QueryVO vo){
-		return dao.slist(vo);
+	public HashMap<String, Object> slist(QueryVO vo){
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("slist", dao.slist(vo));
+		map.put("total", dao.total(vo));
+		return map;
 	}
 	
-	@GetMapping("/total")
-	public int total(QueryVO vo){
-		return dao.total(vo);
-	}
+//	@GetMapping("/total")
+//	public int total(QueryVO vo){
+//		return dao.total(vo);
+//	}
 	
 	@PostMapping("/insert")
 	public void insert(@RequestBody ProVO vo) {

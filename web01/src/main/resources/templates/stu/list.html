@@ -31,7 +31,7 @@
 			<th>생일</th>
 			<th>지도교수</th>
 		</tr>
-		{{#each .}}
+		{{#each list}}
 		<tr class="text-center">
 			<td>{{scode}}</td>
 			<td><a href="/stu/read?scode={{scode}}">{{sname}}</a></td>
@@ -45,52 +45,45 @@
 </script>
 <script>
 	let page = 1;
+	let total = 0;
 	const size = 3;
 	
-	getTotal();
+	getList();
 	$(frm).on("submit", function(e){
 		e.preventDefault();
-		page = 1;
+		//page = 1;
 		getList();
-		getTotal();
 	})
+	
 	function getList(){
 		const query = $(frm.query).val();
 		const key = $(frm.key).val();
 		$.ajax({
 			type:'get',
-			url:'/stu/list.json',
+			url:"/stu/list.json",
 			data:{page, size, key, query},
 			success:function(data){
-				if(data==0){
+				$("#total").html(`검색 결과 : ${data.total}건`)
+				if(data.total==0){
 					$("#div_stu").html("<h3 class='text-center my-5'>검색 결과가 존재하지 않습니다.</h3>")
 				}else{
 					const temp = Handlebars.compile($("#temp_stu").html());
 					$("#div_stu").html(temp(data));
+					if(total!=data.total){
+						const totalPages = Math.ceil(data.total/size);
+	                	$("#pagination").twbsPagination("changeTotalPages", totalPages, 1);
+	                	total=data.total;
+					}
 				}
-			}
-		})
-	}
-	function getTotal(){
-		const query = $(frm.query).val();
-		const key = $(frm.key).val();
-		$.ajax({
-			type:'get',
-			url:'/stu/total',
-			data:{query, key},
-			success:function(data){
-				$("#total").html(`검색 결과 : ${data}`)
-				if(data>size){
+				if(data.total>size){
 					$("#pagination").show();
-					const totalPages = Math.ceil(data/size);
-	                $("#pagination").twbsPagination("changeTotalPages", totalPages, page)
-                }else{
-					getList();
+				}else{
 					$("#pagination").hide();
 				}
 			}
 		})
 	}
+	
 	$('#pagination').twbsPagination({
 		totalPages: 10, //총 페이지 번호 수
 		visiblePages: 5, // 하단에서 한 번에 보여 지는 페이지 번호 수

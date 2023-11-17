@@ -1,0 +1,15 @@
+package com.example.dao;
+
+public class EnrollDAOImpl implements EnrollDAO{
+
+	@Override
+	public void delete(String scode, String lcode) {
+		
+	}
+
+	@Override
+	public void persons(String lcode, int count) {
+		
+	}
+
+}
