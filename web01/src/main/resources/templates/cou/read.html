@@ -9,7 +9,8 @@
 		</div>
 	</nav>
 	<div class="tab-content" id="nav-tabContent">
-		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
+			tabindex="0">
 			<div id="div_cou" class="row justify-content-center mt-5"></div>
 		</div>
 		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
@@ -18,7 +19,13 @@
 	</div>
 </div>
 <script>
-	const lcode = "[[${param.lcode}]]";
+	let lcode = "[[${param.lcode}]]";
+	const tab = "[[${param.tab}]]";
+	if (tab == 2) {
+		$("#nav-profile-tab").click();
+	}
+	getEnroll();
+
 	$.ajax({
 		type: 'get',
 		url: '/cou/read.json',
@@ -28,13 +35,79 @@
 			$("#div_cou").html(temp(data));
 		}
 	})
-	$.ajax({
-		type:'get',
-		url:'/cou/enroll.json',
-		data:{lcode},
-		success:function(data){
-			const temp = Handlebars.compile($("#temp_enroll").html());
-			$("#div_enroll").html(temp(data));
+
+	function getEnroll() {
+		$.ajax({
+			type: 'get',
+			url: '/cou/enroll.json',
+			data: {lcode},
+			success: function (data) {
+				const temp = Handlebars.compile($("#temp_enroll").html());
+				$("#div_enroll").html(temp(data));
+			}
+		})
+	}
+
+	$("#div_enroll").on("click", "#all", function () {
+		//alert("..")
+		if ($(this).is(":checked")) {
+			$("#div_enroll .chk").prop("checked", true);
+		} else {
+			$("#div_enroll .chk").prop("checked", false);
+		}
+	})
+
+	$("#div_enroll").on("click", ".chk", function () {
+		const all = $("#div_enroll .chk").length;
+		const chk = $("#div_enroll .chk:checked").length;
+		if (all == chk) {
+			$("#div_enroll #all").prop("checked", true);
+		} else {
+			$("#div_enroll #all").prop("checked", false);
+		}
+	})
+
+	$("#div_enroll").on("click", "#btn_update", function () {
+		const chk = $("#div_enroll .chk:checked").length;
+		if (chk == 0) {
+			alert("수정할 학생을 선택하세요.");
+		} else {
+			if (confirm(`${chk}명 학생의 점수를 수정하시겠습니까?`)) {
+				$("#div_enroll .chk:checked").each(function () {
+					const tr = $(this).parent().parent();
+					const scode = tr.attr("scode");
+					const grade = tr.find(".grade").val();
+					//alert(scode + ":" + grade)
+					$.ajax({
+						type: 'post',
+						url: '/enroll/grade',
+						data: JSON.stringify({lcode, scode, grade}),
+						contentType: 'application/json',
+						success: function () { }
+					})
+				})
+				alert(`${chk}명의 점수가 수정되었습니다.`);
+				getEnroll();
+			}
+		}
+	})
+
+	$("#div_enroll").on("click", ".btn_update", function () {
+		const tr = $(this).parent().parent();
+		const scode = tr.attr("scode");
+		const grade = tr.find(".grade").val();
+		//alert(`${lcode}\n${scode}\n${grade}`)
+		if (confirm(`${scode}학생의 성적을 ${grade}점으로 수정하시겠습니까?`)) {
+			$.ajax({
+				type: 'post',
+				url: '/enroll/grade',
+				data: JSON.stringify({lcode, scode, grade}),
+				contentType: 'application/json',
+				success: function () {
+					alert("수정되었습니다.");
+					getEnroll();
+				}
+			})
 		}
 	})
 </script>
@@ -54,17 +127,25 @@
 <script id="temp_enroll" type="x-handlebars-template">
 	<table class="table table-striped table-dark">
 		<tr class="text-center">
+			<th><input type="checkbox" id="all">전체선택</th>
 			<th>학생이름</th>
 			<th>학과(학년)</th>
 			<th>수강신청일</th>
 			<th>성적</th>
+			<th><button class="btn btn-secondary btn-sm" id="btn_update">선택수정</button></th>
 		</tr>
 		{{#each .}}
-		<tr class="text-center">
+		<tr class="text-center" scode="{{scode}}">
+			<td><input type="checkbox" class="chk"></td>
 			<td>{{sname}} ({{scode}})</td>
 			<td>{{dept}} ({{year}})</td>
 			<td>{{edate}}</td>
-			<td>{{grade}}</td>
+			<td>
+				<input value="{{grade}}" size="3" class="text-end grade">
+			</td>
+			<td>
+				<button class="btn btn-sm btn-secondary btn_update">수정</button>
+			</td>
 		</tr>
 		{{/each}}
 	</table>

@@ -1,0 +1,43 @@
+<script type="text/javascript">
+	function barChart(rows){			
+		google.charts.load('current', {'packages': ['bar']});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable(rows);
+	
+			var options = {
+				bars: 'horizontal'
+			};
+	
+			var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+	
+			chart.draw(data, google.charts.Bar.convertOptions(options));
+		}
+	}
+</script>
+<script>
+	$("#title").html(`강좌별 평균 점수`)
+	getData();
+	function getData() {
+		$.ajax({
+			type: 'get',
+			url: '/cou/enroll.json',
+			success: function (data) {
+				let rows=[];
+				rows.push(['강좌이름', '평균점수']),
+				data.forEach(c=>{
+					//console.log(s);
+					rows.push([`${c.lname}(${c.lcode})`, c.avg_grade]);
+				})
+				//console.log(rows);
+				barChart(rows);
+			}
+		})
+	}
+</script>
+<div class="row mt-5">
+	<div class="col">
+		<h1 class="text-center" id="title"></h1>
+		<div id="columnchart_material" style="width: 90%; height: 500px;"></div>
+	</div>
+</div>

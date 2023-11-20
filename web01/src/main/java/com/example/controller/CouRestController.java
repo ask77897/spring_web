@@ -19,7 +19,7 @@ public class CouRestController {
 	
 	@GetMapping("/list.json")
 	public HashMap<String, Object> list(QueryVO vo){
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> map = new HashMap<>();
 		map.put("list", dao.list(vo));
 		map.put("total", dao.total(vo));
 		return map;
@@ -33,5 +33,10 @@ public class CouRestController {
 	@GetMapping("/enroll.json")
 	public List<HashMap<String, Object>> enroll(String lcode){
 		return dao.enroll(lcode);
+	}
+	
+	@GetMapping("/graph.json")
+	public List<HashMap<String, Object>> graph(){
+		return dao.graph();
 	}
 }

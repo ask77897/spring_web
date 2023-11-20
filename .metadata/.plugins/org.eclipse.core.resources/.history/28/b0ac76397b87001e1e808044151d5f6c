@@ -1,0 +1,48 @@
+<script type="text/javascript">
+	google.charts.load('current', {'packages': ['bar']});
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+			['학생이름', '점수'],
+			['학생1', 100],
+			['학생2', 70],
+			['학생3', 60],
+			['학생4', 30]
+		]);
+
+		var options = {
+			chart: {
+				title: 'Company Performance',
+				subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+			},
+			width: '800',
+			height: '500'
+		};
+
+		var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+		chart.draw(data, google.charts.Bar.convertOptions(options));
+	}
+</script>
+<script>
+	lcode = "[[${param.lcode}]]";
+	getData();
+	function getData() {
+		$.ajax({
+			type: 'get',
+			url: '/cou/enroll.json',
+			data: {lcode},
+			success: function (data) {
+				let rows=[];
+				rows.push(['학생이름', '점수']),
+				data.forEach(s=>{
+					//console.log(s);
+					rows.push([s.sname, s.grade]);
+				})
+				console.log(rows);
+			}
+		})
+	}
+</script>
+<div id="columnchart_material" style="width: 800px; height: 500px;" class="col"></div>

@@ -14,8 +14,8 @@
 				<span id="total" class="mt-2 ms-3"></span>
 			</form>
 		</div>
-		<div class="col">
-			
+		<div class="col text-end">
+			<a href="/cou/graph1" class="btn btn-dark">강좌별 평균</a>
 		</div>
 	</div>
 	<hr/>
@@ -30,6 +30,7 @@
 			<th>시간(강의실)</th>
 			<th>지도교수</th>
 			<th>인원수</th>
+			<th>성적</th>
 		</tr>
 		{{#each list}}
 		<tr class="text-center">
@@ -38,6 +39,7 @@
 			<td>{{hours}} ({{room}})</td>
 			<td>{{pname}} ({{instructor}})</td>
 			<td>{{persons}}/{{capacity}}</td>
+			<td><a href="/cou/graph?lcode={{lcode}}&lname={{lname}}" class="btn btn-secondary btn-sm">그래프</a></td>
 		</tr>
 		{{/each}}
 	</table>

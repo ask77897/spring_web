@@ -13,4 +13,12 @@
     	insert into enrollments(scode, lcode, edate)
     	values(#{scode}, #{lcode}, now())
     </insert>
+    <select id="read" resultType="hashmap">
+    	select * from enrollments
+    	where lcode = #{lcode} and scode = #{scode}
+    </select>
+    <update id="grade">
+    	update enrollments set grade = #{grade}
+    	where lcode = #{lcode} and scode=#{scode} 
+    </update>
 </mapper>

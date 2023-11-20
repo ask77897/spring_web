@@ -40,4 +40,10 @@
     	select * from cou_enroll
     	where lcode=#{lcode}
     </select>
+    <select id="graph" resultType="hashmap">
+    	select e.lcode, c.lname, avg(grade) avg_grade
+    	from enrollments e, courses c 
+    	where e.lcode=c.lcode 
+    	group by lcode
+    </select>
 </mapper>

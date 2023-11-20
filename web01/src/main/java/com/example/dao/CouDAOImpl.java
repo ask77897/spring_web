@@ -36,4 +36,9 @@ public class CouDAOImpl implements CouDAO{
 		return session.selectList(namespace + ".enroll", lcode);
 	}
 
+	@Override
+	public List<HashMap<String, Object>> graph() {
+		return session.selectList(namespace + ".graph");
+	}
+
 }

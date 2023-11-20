@@ -20,4 +20,16 @@ public class CouController {
 		model.addAttribute("pageName", "cou/read");
 		return "home";
 	}
+	
+	@GetMapping("/graph")
+	public String graph(Model model) {
+		model.addAttribute("pageName", "cou/chart");
+		return "home";
+	}
+	
+	@GetMapping("/graph1")
+	public String graph1(Model model) {
+		model.addAttribute("pageName", "cou/chart1");
+		return "home";
+	}
 }
