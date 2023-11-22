@@ -25,7 +25,7 @@
 	cursor: pointer
 }
 
-.navbar-nav .active{
+.navbar-nav .active {
 	color: white;
 }
 
@@ -34,4 +34,8 @@ a {
 	font-size: 1rem;
 	padding: 5px;
 	margin: 0px 5px;
-  }
+}
+
+.body{
+	cursor: pointer;
+}
